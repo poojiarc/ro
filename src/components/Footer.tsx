@@ -1,5 +1,5 @@
-import { Heart, Phone, MapPin, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Heart, Phone, MapPin, Mail, Home, Info, BedDouble, Contact } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -17,15 +17,33 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h4 className="font-display text-lg font-semibold text-white mb-3">Quick Links</h4>
-            <div className="space-y-2 text-sm">
-              <Link to="/" className="block hover:text-accent transition-colors">Home</Link>
-              <Link to="/about" className="block hover:text-accent transition-colors">About</Link>
-              <Link to="/accommodation" className="block hover:text-accent transition-colors">Accommodation</Link>
-              <Link to="/contact" className="block hover:text-accent transition-colors">Contact</Link>
-            </div>
-          </div>
+          {/* Quick Links */}
+<div>
+  <h4 className="font-display text-lg font-semibold text-white mb-3">Quick Links</h4>
+  <div className="space-y-3 text-sm">
+
+    <Link to="/" className="flex items-center gap-2 hover:text-accent transition-colors group">
+      <Home className="h-4 w-4 text-accent group-hover:scale-110 transition-transform" />
+      Home
+    </Link>
+
+    <Link to="/about" className="flex items-center gap-2 hover:text-accent transition-colors group">
+      <Info className="h-4 w-4 text-accent group-hover:scale-110 transition-transform" />
+      About
+    </Link>
+
+    <Link to="/accommodation" className="flex items-center gap-2 hover:text-accent transition-colors group">
+      <BedDouble className="h-4 w-4 text-accent group-hover:scale-110 transition-transform" />
+      Accommodation
+    </Link>
+
+    <Link to="/contact" className="flex items-center gap-2 hover:text-accent transition-colors group">
+      <Contact className="h-4 w-4 text-accent group-hover:scale-110 transition-transform" />
+      Contact
+    </Link>
+
+  </div>
+</div>
 
           {/* Contact */}
           <div>
