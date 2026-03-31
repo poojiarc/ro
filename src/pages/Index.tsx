@@ -1,12 +1,11 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Wifi, Car, Tv, Snowflake, Clock, UtensilsCrossed, Star, ArrowRight } from 'lucide-react';
 import useScrollAnimation from '@/hooks/useScrollAnimation';
-import BookingModal from '@/components/BookingModal';
+import { useBooking } from '@/contexts/BookingContext';
 
 const Index = () => {
   useScrollAnimation();
-  const [bookingOpen, setBookingOpen] = useState(false);
+  const { openBooking } = useBooking();
 
   return (
     <div>
