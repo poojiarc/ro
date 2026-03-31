@@ -25,6 +25,12 @@ const BookingModal = ({ open, onOpenChange }: BookingModalProps) => {
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [shakeField, setShakeField] = useState('');
+  const [checkInOpen, setCheckInOpen] = useState(false);
+const [checkOutOpen, setCheckOutOpen] = useState(false);
+
+const [tempCheckIn, setTempCheckIn] = useState<Date | undefined>();
+const [tempCheckOut, setTempCheckOut] = useState<Date | undefined>();
+
 
   const triggerShake = (field: string) => {
     setShakeField(field);
@@ -145,7 +151,7 @@ Please confirm availability.`;
                 <div className="space-y-4">
                   <div className={shakeClass('checkIn')}>
                     <Label className="text-white/70 text-xs uppercase tracking-wider mb-1.5 block">Check-in Date</Label>
-                    <Popover>
+                    <Popover open={checkInOpen} onOpenChange={setCheckInOpen}>
                       <PopoverTrigger asChild>
                         <Button
                           variant="outline"
@@ -160,13 +166,20 @@ Please confirm availability.`;
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
                         <Calendar
-                          mode="single"
-                          selected={checkIn}
-                          onSelect={setCheckIn}
-                          disabled={(date) => date < new Date()}
-                          initialFocus
-                          className="p-3 pointer-events-auto"
-                        />
+  mode="single"
+  selected={tempCheckIn || checkIn}
+  onSelect={setTempCheckIn}
+/>
+<Button
+  className="w-full mt-2 bg-accent"
+  onClick={() => {
+    setCheckIn(tempCheckIn);
+    setCheckInOpen(false);
+    setCheckOutOpen(true); // optional smooth UX
+  }}
+>
+  OK
+</Button>
                       </PopoverContent>
                     </Popover>
                     {errors.checkIn && <p className="text-red-400 text-xs mt-1">{errors.checkIn}</p>}
@@ -174,7 +187,7 @@ Please confirm availability.`;
 
                   <div className={shakeClass('checkOut')}>
                     <Label className="text-white/70 text-xs uppercase tracking-wider mb-1.5 block">Check-out Date</Label>
-                    <Popover>
+                    <Popover open={checkOutOpen} onOpenChange={setCheckOutOpen}>
                       <PopoverTrigger asChild>
                         <Button
                           variant="outline"
@@ -189,13 +202,19 @@ Please confirm availability.`;
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
                         <Calendar
-                          mode="single"
-                          selected={checkOut}
-                          onSelect={setCheckOut}
-                          disabled={(date) => date < (checkIn || new Date())}
-                          initialFocus
-                          className="p-3 pointer-events-auto"
-                        />
+  mode="single"
+  selected={tempCheckOut || checkOut}
+  onSelect={setTempCheckOut}
+/>
+<Button
+  className="w-full mt-2 bg-accent"
+  onClick={() => {
+    setCheckOut(tempCheckOut);
+    setCheckOutOpen(false);
+  }}
+>
+  OK
+</Button>
                       </PopoverContent>
                     </Popover>
                     {errors.checkOut && <p className="text-red-400 text-xs mt-1">{errors.checkOut}</p>}
@@ -260,7 +279,7 @@ Please confirm availability.`;
                   <div className="flex gap-3 mt-2">
                    <Button
   onClick={handleBack}
-  className="flex-1 bg-transparent border border-white/20 text-white hover:bg-white/10 hover:border-accent hover:text-accent transition-all duration-200"
+  className="flex-1 bg-transparent border border-white/20 text-white hover:bg-white/5"
 >
   <ArrowLeft className="mr-2 h-4 w-4" /> Back
 </Button>
