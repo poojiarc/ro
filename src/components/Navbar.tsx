@@ -52,6 +52,7 @@ const Navbar = () => {
           </div>
 
           <Link to="/contact" className={linkClass}><Phone className="h-4 w-4" /> Contact</Link>
+          <button onClick={() => openBooking()} className="ml-2 px-5 py-2 rounded-md bg-accent text-accent-foreground text-sm font-semibold hover:bg-accent/90 transition-colors">Book Now</button>
         </div>
 
         {/* Mobile toggle */}
