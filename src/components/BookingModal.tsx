@@ -86,7 +86,7 @@ Email: ${email.trim()}
 
 Please confirm availability.`;
 
-    window.open(`https://wa.me/919874717471?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/9170139 72383?text=${encodeURIComponent(message)}`, '_blank');
     onOpenChange(false);
     resetForm();
   };
@@ -258,13 +258,12 @@ Please confirm availability.`;
                   </div>
 
                   <div className="flex gap-3 mt-2">
-                    <Button
-                      variant="outline"
-                      onClick={handleBack}
-                      className="flex-1 border-white/20 text-white hover:bg-white/10 hover:text-white"
-                    >
-                      <ArrowLeft className="mr-2 h-4 w-4" /> Back
-                    </Button>
+                   <Button
+  onClick={handleBack}
+  className="flex-1 bg-transparent border border-white/20 text-white hover:bg-white/10 hover:border-accent hover:text-accent transition-all duration-200"
+>
+  <ArrowLeft className="mr-2 h-4 w-4" /> Back
+</Button>
                     <Button
                       onClick={handleWhatsApp}
                       className="flex-1 bg-green-600 hover:bg-green-500 text-white font-semibold hover:scale-[1.02] transition-all duration-200 hover:shadow-lg hover:shadow-green-500/30"

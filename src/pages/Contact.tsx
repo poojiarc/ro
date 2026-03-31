@@ -33,7 +33,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">Phone</h3>
-                    <a href="tel:+919874717471" className="text-muted-foreground hover:text-accent transition-colors">98 7471 7471</a>
+                    <a href="tel:+91987471747" className="text-muted-foreground hover:text-accent transition-colors">98 7471 7471</a>
                   </div>
                 </div>
 
@@ -75,7 +75,7 @@ const Contact = () => {
               </div>
 
               <a
-                href="https://wa.me/919874717471?text=Hello%2C%20I%20would%20like%20to%20book%20a%20room%20at%20Royal%20Grand."
+                href="https://wa.me/9170139 72383?text=Hello%2C%20I%20would%20like%20to%20book%20a%20room%20at%20Royal%20Grand."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-8 py-3 mt-8 rounded-md bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors"
