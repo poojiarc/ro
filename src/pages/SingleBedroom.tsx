@@ -1,6 +1,6 @@
 import { Snowflake, Wifi, Tv, Car, Clock, ShowerHead } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import useScrollAnimation from '@/hooks/useScrollAnimation';
+import { useBooking } from '@/contexts/BookingContext';
 
 const facilities = [
   { icon: Snowflake, label: 'AC Room' },
