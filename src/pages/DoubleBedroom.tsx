@@ -4,6 +4,7 @@ import { useBooking } from '@/contexts/BookingContext';
 
 const DoubleBedroom = () => {
   useScrollAnimation();
+  const { openBooking } = useBooking();
 
   return (
     <div>

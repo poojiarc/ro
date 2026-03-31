@@ -13,6 +13,7 @@ const facilities = [
 
 const SingleBedroom = () => {
   useScrollAnimation();
+  const { openBooking } = useBooking();
 
   return (
     <div>
