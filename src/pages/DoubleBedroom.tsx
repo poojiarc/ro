@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
 import { Snowflake, Wifi, Tv, Car, Clock, ShowerHead, UtensilsCrossed, Phone } from 'lucide-react';
 import useScrollAnimation from '@/hooks/useScrollAnimation';
+import { useBooking } from '@/contexts/BookingContext';
 
 const DoubleBedroom = () => {
   useScrollAnimation();
