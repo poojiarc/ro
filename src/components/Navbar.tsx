@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Info, BedDouble, Phone, Menu, X, ChevronDown } from 'lucide-react';
+import { useBooking } from '@/contexts/BookingContext';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { openBooking } = useBooking();
   const location = useLocation();
   const isHome = location.pathname === '/';
 
@@ -51,6 +53,7 @@ const Navbar = () => {
           </div>
 
           <Link to="/contact" className={linkClass}><Phone className="h-4 w-4" /> Contact</Link>
+          <button onClick={() => openBooking()} className="ml-2 px-5 py-2 rounded-md bg-accent text-accent-foreground text-sm font-semibold hover:bg-accent/90 transition-colors">Book Now</button>
         </div>
 
         {/* Mobile toggle */}
@@ -68,6 +71,7 @@ const Navbar = () => {
           <Link to="/accommodation/single" className="block pl-8 text-sm text-white/70 hover:text-accent transition-colors py-1">Single Bedroom</Link>
           <Link to="/accommodation/double" className="block pl-8 text-sm text-white/70 hover:text-accent transition-colors py-1">Double Bedroom</Link>
           <Link to="/contact" className={linkClass + " py-2"}><Phone className="h-4 w-4" /> Contact</Link>
+          <button onClick={() => { openBooking(); setMobileOpen(false); }} className="w-full mt-2 px-5 py-2 rounded-md bg-accent text-accent-foreground text-sm font-semibold hover:bg-accent/90 transition-colors">Book Now</button>
         </div>
       )}
     </nav>

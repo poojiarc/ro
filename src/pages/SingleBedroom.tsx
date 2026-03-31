@@ -1,6 +1,6 @@
 import { Snowflake, Wifi, Tv, Car, Clock, ShowerHead } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import useScrollAnimation from '@/hooks/useScrollAnimation';
+import { useBooking } from '@/contexts/BookingContext';
 
 const facilities = [
   { icon: Snowflake, label: 'AC Room' },
@@ -13,6 +13,7 @@ const facilities = [
 
 const SingleBedroom = () => {
   useScrollAnimation();
+  const { openBooking } = useBooking();
 
   return (
     <div>
@@ -51,9 +52,9 @@ const SingleBedroom = () => {
                 ))}
               </div>
 
-              <Link to="/contact" className="inline-flex items-center justify-center px-8 py-3 rounded-md bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-colors">
+              <button onClick={openBooking} className="inline-flex items-center justify-center px-8 py-3 rounded-md bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-colors">
                 Book Now
-              </Link>
+              </button>
             </div>
           </div>
         </div>
