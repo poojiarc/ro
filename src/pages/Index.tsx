@@ -151,9 +151,9 @@ const Index = () => {
         </div>
       </section>
 
-      </div>
     </div>
   );
+};
 };
 
 export default Index;
