@@ -62,9 +62,9 @@ const DoubleBedroom = () => {
                 ))}
               </div>
 
-              <Link to="/contact" className="inline-flex items-center justify-center px-8 py-3 rounded-md bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-colors w-full text-center">
+              <button onClick={openBooking} className="inline-flex items-center justify-center px-8 py-3 rounded-md bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-colors w-full text-center">
                 Book Now
-              </Link>
+              </button>
             </div>
           </div>
         </div>

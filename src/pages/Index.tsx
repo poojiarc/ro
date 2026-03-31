@@ -151,7 +151,7 @@ const Index = () => {
         </div>
       </section>
 
-      <BookingModal open={bookingOpen} onOpenChange={setBookingOpen} />
+      </div>
     </div>
   );
 };
