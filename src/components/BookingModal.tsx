@@ -8,18 +8,19 @@ import { Label } from '@/components/ui/label';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
+import { useBooking } from '@/contexts/BookingContext';
 
-interface BookingModalProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}
-
-const BookingModal = ({ open, onOpenChange }: BookingModalProps) => {
+const BookingModal = () => {
+  const { bookingOpen, setBookingOpen } = useBooking();
   const [step, setStep] = useState(1);
   const [direction, setDirection] = useState<'forward' | 'back'>('forward');
   const [animating, setAnimating] = useState(false);
   const [checkIn, setCheckIn] = useState<Date>();
   const [checkOut, setCheckOut] = useState<Date>();
+  const [tempCheckIn, setTempCheckIn] = useState<Date>();
+  const [tempCheckOut, setTempCheckOut] = useState<Date>();
+  const [checkInOpen, setCheckInOpen] = useState(false);
+  const [checkOutOpen, setCheckOutOpen] = useState(false);
   const [name, setName] = useState('');
   const [mobile, setMobile] = useState('');
   const [email, setEmail] = useState('');
@@ -87,7 +88,7 @@ Email: ${email.trim()}
 Please confirm availability.`;
 
     window.open(`https://wa.me/919874717471?text=${encodeURIComponent(message)}`, '_blank');
-    onOpenChange(false);
+    setBookingOpen(false);
     resetForm();
   };
 
@@ -95,6 +96,8 @@ Please confirm availability.`;
     setStep(1);
     setCheckIn(undefined);
     setCheckOut(undefined);
+    setTempCheckIn(undefined);
+    setTempCheckOut(undefined);
     setName('');
     setMobile('');
     setEmail('');
@@ -110,12 +113,12 @@ Please confirm availability.`;
     : 'animate-[slideInLeft_0.3s_ease-in-out_forwards]';
 
   return (
-    <Dialog open={open} onOpenChange={(o) => { onOpenChange(o); if (!o) resetForm(); }}>
+    <Dialog open={bookingOpen} onOpenChange={(o) => { setBookingOpen(o); if (!o) resetForm(); }}>
       <DialogContent className="sm:max-w-md max-w-[92vw] p-0 border-0 overflow-hidden bg-transparent shadow-none [&>button]:hidden">
         <div className="relative bg-primary/95 backdrop-blur-xl border border-accent/20 rounded-2xl shadow-2xl shadow-accent/10 overflow-hidden">
-          {/* Close button - always on top */}
+          {/* Close button */}
           <button
-            onClick={() => { onOpenChange(false); resetForm(); }}
+            onClick={() => { setBookingOpen(false); resetForm(); }}
             className="absolute right-4 top-4 z-50 h-8 w-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 hover:scale-110 transition-all duration-200"
           >
             <X className="h-4 w-4" />
@@ -138,14 +141,18 @@ Please confirm availability.`;
             </div>
           </div>
 
-          {/* Body - fixed height, overflow hidden, one step at a time */}
+          {/* Body */}
           <div className="relative overflow-hidden" style={{ minHeight: 340 }}>
             <div className={cn('px-6 py-6', enterAnim)} key={step}>
               {step === 1 && (
                 <div className="space-y-4">
+                  {/* Check-in */}
                   <div className={shakeClass('checkIn')}>
                     <Label className="text-white/70 text-xs uppercase tracking-wider mb-1.5 block">Check-in Date</Label>
-                    <Popover>
+                    <Popover open={checkInOpen} onOpenChange={(o) => {
+                      setCheckInOpen(o);
+                      if (o) setTempCheckIn(checkIn);
+                    }}>
                       <PopoverTrigger asChild>
                         <Button
                           variant="outline"
@@ -161,20 +168,36 @@ Please confirm availability.`;
                       <PopoverContent className="w-auto p-0" align="start">
                         <Calendar
                           mode="single"
-                          selected={checkIn}
-                          onSelect={setCheckIn}
+                          selected={tempCheckIn}
+                          onSelect={setTempCheckIn}
                           disabled={(date) => date < new Date()}
                           initialFocus
                           className="p-3 pointer-events-auto"
                         />
+                        <div className="p-3 pt-0">
+                          <Button
+                            onClick={() => {
+                              if (tempCheckIn) setCheckIn(tempCheckIn);
+                              setCheckInOpen(false);
+                            }}
+                            disabled={!tempCheckIn}
+                            className="w-full bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
+                          >
+                            OK
+                          </Button>
+                        </div>
                       </PopoverContent>
                     </Popover>
                     {errors.checkIn && <p className="text-red-400 text-xs mt-1">{errors.checkIn}</p>}
                   </div>
 
+                  {/* Check-out */}
                   <div className={shakeClass('checkOut')}>
                     <Label className="text-white/70 text-xs uppercase tracking-wider mb-1.5 block">Check-out Date</Label>
-                    <Popover>
+                    <Popover open={checkOutOpen} onOpenChange={(o) => {
+                      setCheckOutOpen(o);
+                      if (o) setTempCheckOut(checkOut);
+                    }}>
                       <PopoverTrigger asChild>
                         <Button
                           variant="outline"
@@ -190,12 +213,24 @@ Please confirm availability.`;
                       <PopoverContent className="w-auto p-0" align="start">
                         <Calendar
                           mode="single"
-                          selected={checkOut}
-                          onSelect={setCheckOut}
+                          selected={tempCheckOut}
+                          onSelect={setTempCheckOut}
                           disabled={(date) => date < (checkIn || new Date())}
                           initialFocus
                           className="p-3 pointer-events-auto"
                         />
+                        <div className="p-3 pt-0">
+                          <Button
+                            onClick={() => {
+                              if (tempCheckOut) setCheckOut(tempCheckOut);
+                              setCheckOutOpen(false);
+                            }}
+                            disabled={!tempCheckOut}
+                            className="w-full bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
+                          >
+                            OK
+                          </Button>
+                        </div>
                       </PopoverContent>
                     </Popover>
                     {errors.checkOut && <p className="text-red-400 text-xs mt-1">{errors.checkOut}</p>}
