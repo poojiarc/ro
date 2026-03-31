@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Info, BedDouble, Phone, Menu, X, ChevronDown } from 'lucide-react';
+import { useBooking } from '@/contexts/BookingContext';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
