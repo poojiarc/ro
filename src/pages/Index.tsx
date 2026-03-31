@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Wifi, Car, Tv, Snowflake, Clock, UtensilsCrossed, Star, ArrowRight } from 'lucide-react';
 import useScrollAnimation from '@/hooks/useScrollAnimation';
+import BookingModal from '@/components/BookingModal';
 
 const Index = () => {
   useScrollAnimation();
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   return (
     <div>
@@ -22,9 +24,9 @@ const Index = () => {
             Luxury Stay in Annavaram
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-            <Link to="/contact" className="inline-flex items-center justify-center px-8 py-3 rounded-md bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-colors">
+            <button onClick={() => setBookingOpen(true)} className="inline-flex items-center justify-center px-8 py-3 rounded-md bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-colors">
               Book Now
-            </Link>
+            </button>
             <Link to="/contact" className="inline-flex items-center justify-center px-8 py-3 rounded-md border-2 border-white text-white font-semibold hover:bg-white/10 transition-colors">
               Contact Us
             </Link>
@@ -144,11 +146,13 @@ const Index = () => {
         <div className="relative z-10 text-center px-4 animate-on-scroll">
           <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">Ready for a Luxury Experience?</h2>
           <p className="text-white/80 mb-8 max-w-lg mx-auto">Book your stay at Royal Grand and enjoy the finest hospitality in Annavaram.</p>
-          <Link to="/contact" className="inline-flex items-center justify-center px-8 py-3 rounded-md bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-colors">
+          <button onClick={() => setBookingOpen(true)} className="inline-flex items-center justify-center px-8 py-3 rounded-md bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-colors">
             Book Your Stay
-          </Link>
+          </button>
         </div>
       </section>
+
+      <BookingModal open={bookingOpen} onOpenChange={setBookingOpen} />
     </div>
   );
 };
